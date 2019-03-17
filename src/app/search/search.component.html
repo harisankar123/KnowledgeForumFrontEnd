@@ -1,0 +1,49 @@
+<div class="fullscreen">
+<app-shared></app-shared>
+    <div class="row text-center" style="padding-left: 38%">
+        <div class="row" style ="padding-top:5%">
+          <div class="col-x1-9-mx-auto">
+            <h1 style="color:white">Global Search</h1>
+            <p style="color: rgba(255, 255, 255, 0.5)">Displays network information</p>
+            </div>
+          </div>
+        </div>
+  <div style="padding-top:4%">
+      <div style="padding-left:20px;padding-left:25%;padding-bottom:5px">
+      <div class="row">
+            <div class="col-sm-2"><!--width is set by this div -->
+                        <select class="form-control" (change)="onChange($event)" [(ngModel)]="searchCriteria.searchCategory">
+                            <option>nslookup</option>
+                            <option>ping</option>
+                            <option>tracert</option>
+                            <option>measure</option>
+                          </select>
+                </div>
+                <div class="col-sm-2" *ngIf="isMeasure" [(ngModel)]="searchCriteria.locationCategory">
+                        <select class="form-control">
+                            <option>rural</option>
+                            <option>urban</option>
+                          </select>
+                    </div>
+                <div class="col-sm-4"><!--width is set by this div -->
+                   <div class="row">
+                      <div class="col-sm-9">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchCriteria.url">
+                  </div>
+                </div>
+                <div class="col-sm-3">
+                    <button type="button" class="btn btn-info" (click)="onSubmit()">Search</button>
+                  </div>
+              </div>
+            
+                </div>
+        </div>
+    </div>
+  </div>
+  <div>
+      <div class="form-group">
+          <textarea readonly class="form-control" rows="12" placeholder="Result will append here" edi>{{serachResult}}</textarea>
+        </div>
+  </div>
+</div>

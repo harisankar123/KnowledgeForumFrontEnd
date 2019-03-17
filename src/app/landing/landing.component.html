@@ -1,0 +1,22 @@
+<div class="fullscreen" style="height:300px">
+  <app-shared></app-shared>
+  <div class="row text-center" style="padding-left: 37%;padding-top: 4%">
+  <div class="row">
+    <div class="col-x1-9-mx-auto">
+      <h1 style="color:white">Knowledge Base</h1>
+      <p style="color: rgba(255, 255, 255, 0.5)">Tracks network latency and throughput</p>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div style="padding-top:4%">
+  <div class="row">
+    <div class="col-sm-4"  *ngFor="let tile of tiles">
+      <div style="width:100px;height:150px">
+        <video width="320" height="240" controls loop class="embed-responsive-item">
+        <source src="{{tile.navigationUrl}}" type="video/mp4">
+    </video>
+    </div>
+    </div>
+  </div>
+</div>
