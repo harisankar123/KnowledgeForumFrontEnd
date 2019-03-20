@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { LoaderComponent } from './loader/Loader.component';
 import { AppComponent } from './app.component';
 import { LandingComponent } from './landing/landing.component';
 import { AppRoutingModule } from './app-routing-module';
@@ -22,7 +22,8 @@ import { SearchResultResolver } from './search-report/service/search-result-serv
     LandingComponent,
     SearchComponent,
     SharedComponent,
-    SearchReportComponent
+    SearchReportComponent,
+    LoaderComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +32,9 @@ import { SearchResultResolver } from './search-report/service/search-result-serv
     HttpModule,
     FormsModule
   ],
+  exports: [LoaderComponent],
   providers: [TilesService, TilesResolver, SerachService, SearchResultResolver],
   bootstrap: [AppComponent]
+
 })
 export class AppModule { }

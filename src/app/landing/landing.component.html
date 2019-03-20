@@ -1,3 +1,4 @@
+
 <div class="fullscreen" style="height:300px">
   <app-shared></app-shared>
   <div class="row text-center" style="padding-left: 37%;padding-top: 4%">
@@ -10,13 +11,31 @@
   </div>
   </div>
   <div style="padding-top:4%">
+  <div class=container>
   <div class="row">
-    <div class="col-sm-4"  *ngFor="let tile of tiles">
-      <div style="width:100px;height:150px">
-        <video width="320" height="240" controls loop class="embed-responsive-item">
-        <source src="{{tile.navigationUrl}}" type="video/mp4">
-    </video>
-    </div>
+      <div class="col-lg-4 col-sm-6">
+          <div class="thumbnail">
+              <h6>DNS Resolution</h6>
+              <iframe width="320" height="240" src="https://www.youtube.com/embed/3EvjwlQ43_4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+        <div class="col-lg-4 col-sm-6">
+          <div class="thumbnail">
+              <h6>Use of Ping and traceroute</h6>
+              <iframe width="320" height="240" src="https://www.youtube.com/embed/vJV-GBZ6PeM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+        <div class="col-lg-4 col-sm-6">
+          <div class="thumbnail">
+              <h6>Use of all commands</h6>
+              <iframe width="320" height="240" src="https://www.youtube.com/embed/M4yzxOAtn7k" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        </div>
+
     </div>
   </div>
-</div>
+
+
+
+
+

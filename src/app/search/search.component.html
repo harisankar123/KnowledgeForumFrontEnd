@@ -1,3 +1,4 @@
+<app-loader [loader]="isLoading"></app-loader>
 <div class="fullscreen">
 <app-shared></app-shared>
     <div class="row text-center" style="padding-left: 38%">
@@ -15,6 +16,7 @@
                         <select class="form-control" (change)="onChange($event)" [(ngModel)]="searchCriteria.searchCategory">
                             <option>nslookup</option>
                             <option>ping</option>
+                            <option>dig</option>
                             <option>tracert</option>
                             <option>measure</option>
                           </select>
@@ -32,18 +34,43 @@
                     <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchCriteria.url">
                   </div>
                 </div>
+
                 <div class="col-sm-3">
                     <button type="button" class="btn btn-info" (click)="onSubmit()">Search</button>
                   </div>
               </div>
-            
+
                 </div>
         </div>
     </div>
   </div>
   <div>
+      <div class="row">
+          <div class="col-sm-6">
       <div class="form-group">
           <textarea readonly class="form-control" rows="12" placeholder="Result will append here" edi>{{serachResult}}</textarea>
         </div>
+      </div>
+      <div class="col-sm-6">
+        <div style="padding:2px;height:300px;background-color:#59cc0d">
+        <div *ngIf="searchCriteria.searchCategory === 'ping'">
+          <p>The ping command works by sending Internet Control Message Protocol (ICMP) Echo Request messages and getting responses. After that it tells you how many packets have come through, how many packets have been lost, the time it took them to make the round trip,
+             and if there were any errors related to the process or if there was no reply at all.</p>
+        </div>
+        <div *ngIf="searchCriteria.searchCategory === 'nslookup'">
+            <p>nslookup is a network administration command-line tool available in many computer operating systems for querying the Domain Name System (DNS) to obtain domain name or IP address mapping, or other DNS records.</p>
+          </div>
+          <div *ngIf="searchCriteria.searchCategory === 'dig'">
+              <p>Dig stands for (Domain Information Groper) is a network administration command-line tool for querying Domain Name System (DNS) name servers. It is useful for verifying and troubleshooting DNS problems and also to perform DNS lookups and displays the answers that are returned from the name server that were queried</p>
+            </div>
+          <div *ngIf="searchCriteria.searchCategory === 'tracert'">
+              <p>Traceroute is a command which can show you the path a packet of information takes from your computer to one you specify. It will list all the routers it passes through until it reaches its destination, or fails to and is discarded. In addition to this, it will tell you how long each 'hop' from router to router takes.</p>
+            </div>
+            <div *ngIf="searchCriteria.searchCategory === 'measure'">
+                <p>hello there measure</p>
+              </div>
+            </div>
+          </div>
+      </div>
   </div>
 </div>

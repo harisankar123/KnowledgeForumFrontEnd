@@ -10,6 +10,8 @@ import { SearchResult } from './model/search-result-model';
 })
 export class SearchComponent implements OnInit {
 isMeasure = false;
+isLoading = false;
+dataservice: any;
 serachResult: string;
 searchCriteria: SearchCriteria;
   constructor(private searchService: SerachService) { }
@@ -29,6 +31,20 @@ searchCriteria: SearchCriteria;
   onSubmit() {
     this.searchService.getSearchResult(this.searchCriteria).subscribe((result: SearchResult) => {
       this.serachResult = result.searchResult;
+      this.Submit();
     });
   }
+  Submit(){
+    this.isLoading = true;
+            this.dataservice.httpGet('../..')
+                .subscribe((data: any) => {
+
+                    this.isLoading = false;
+
+                },
+                err => {
+                    this.isLoading = false;
+                }
+                );
+        }
 }
