@@ -5,22 +5,33 @@ import { TilesResolver } from './landing/service/tile-resolver';
 import { SearchComponent } from './search/search.component';
 import { SearchReportComponent } from './search-report/search-report.component';
 import { SearchResultResolver } from './search-report/service/search-result-service';
+import {MaterialComponent} from './material/material.component';
+import { LoginComponent } from './login/login.component';
 
 
 const routes: Routes = [
-  {path: '', redirectTo: 'landing', pathMatch: 'full'},
+  {path: '', redirectTo: 'login', pathMatch: 'full'},
   {
-    path: 'landing',
+    path: 'home',
   component: LandingComponent,
   resolve: {tiles: TilesResolver},
  },
  {
-   path: 'search',
+  path: 'material',
+  component: MaterialComponent
+},
+ {
+   path: 'demo',
    component: SearchComponent
  },
  {
   path: 'report',
   component: SearchReportComponent,
+  resolve: {searchReports: SearchResultResolver},
+},
+{
+  path: 'login',
+  component: LoginComponent,
   resolve: {searchReports: SearchResultResolver},
 }
 ];

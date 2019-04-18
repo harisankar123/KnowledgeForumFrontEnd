@@ -20,7 +20,7 @@
           </tr>
         </thead>
         <tbody *ngIf="searchReports && searchReports.length>0" >
-          <tr *ngFor="let searchReport of searchReports">
+          <tr *ngFor="let searchReport of searchReports; let i = index">
           <td>
               <div>{{searchReport.url}}</div>
             </td>
@@ -31,7 +31,7 @@
                   <div>{{searchReport.locationCategory}}</div>
                 </td>
                 <td>
-                    <div title="{{searchReport.searchResult}}">{{searchReport.searchResult}}</div>
+                    <div [ngClass]="getClassName(searchReport.searchResult, i)" title="{{searchReport.searchResult}}">{{searchReport.searchResult}}</div>
                   </td>
           </tr>
         </tbody>

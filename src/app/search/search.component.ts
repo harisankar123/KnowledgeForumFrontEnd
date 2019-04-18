@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SerachService } from './service/search-service';
 import { SearchCriteria } from './model/search-criteria-model';
 import { SearchResult } from './model/search-result-model';
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 
 @Component({
   selector: 'app-search',
@@ -14,7 +15,8 @@ isLoading = false;
 dataservice: any;
 serachResult: string;
 searchCriteria: SearchCriteria;
-  constructor(private searchService: SerachService) { }
+  constructor(private searchService: SerachService
+    , private spinnerService: Ng4LoadingSpinnerService) { }
 
   ngOnInit() {
     this.searchCriteria = {url: '', locationCategory: 'NA', searchCategory: 'None'};
@@ -29,22 +31,12 @@ searchCriteria: SearchCriteria;
   }
 
   onSubmit() {
+    this.spinnerService.show();
     this.searchService.getSearchResult(this.searchCriteria).subscribe((result: SearchResult) => {
-      this.serachResult = result.searchResult;
-      this.Submit();
+    this.serachResult = result.searchResult;
+    this.spinnerService.hide();
+
     });
   }
-  Submit(){
-    this.isLoading = true;
-            this.dataservice.httpGet('../..')
-                .subscribe((data: any) => {
 
-                    this.isLoading = false;
-
-                },
-                err => {
-                    this.isLoading = false;
-                }
-                );
-        }
 }

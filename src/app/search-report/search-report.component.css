@@ -29,9 +29,21 @@
   .customTable td,th{
       width: 200px;
        border: 1px solid #ddd;
-        padding: 8px;
+
       max-width: 200px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+
+  .yellow {
+    background-color: yellow;
+  }
+
+  .red {
+    background-color: red;
+  }
+
+  .green {
+    background-color: green;
   }

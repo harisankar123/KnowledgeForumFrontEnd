@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { LoaderComponent } from './loader/Loader.component';
+
 import { AppComponent } from './app.component';
 import { LandingComponent } from './landing/landing.component';
 import { AppRoutingModule } from './app-routing-module';
@@ -14,6 +14,12 @@ import { SerachService } from './search/service/search-service';
 import { SharedComponent } from './shared/shared.component';
 import { SearchReportComponent } from './search-report/search-report.component';
 import { SearchResultResolver } from './search-report/service/search-result-service';
+import { MaterialComponent } from './material/material.component';
+import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
+
+import { LoginComponent } from './login/login.component';
+import { UserService } from './login/Services/User.Services';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 
 @NgModule({
@@ -23,17 +29,23 @@ import { SearchResultResolver } from './search-report/service/search-result-serv
     SearchComponent,
     SharedComponent,
     SearchReportComponent,
-    LoaderComponent
+    MaterialComponent,
+    LoginComponent
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     HttpModule,
-    FormsModule
+    FormsModule,
+    Ng4LoadingSpinnerModule.forRoot(),
+    CarouselModule.forRoot()
+
   ],
-  exports: [LoaderComponent],
-  providers: [TilesService, TilesResolver, SerachService, SearchResultResolver],
+
+
+  providers: [TilesService, TilesResolver, SerachService, SearchResultResolver,UserService ],
   bootstrap: [AppComponent]
 
 })

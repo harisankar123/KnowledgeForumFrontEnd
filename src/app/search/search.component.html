@@ -1,4 +1,5 @@
-<app-loader [loader]="isLoading"></app-loader>
+
+<ng4-loading-spinner> </ng4-loading-spinner>
 <div class="fullscreen">
 <app-shared></app-shared>
     <div class="row text-center" style="padding-left: 38%">
@@ -9,20 +10,28 @@
             </div>
           </div>
         </div>
+<div class="container">
   <div style="padding-top:4%">
       <div style="padding-left:20px;padding-left:25%;padding-bottom:5px">
       <div class="row">
             <div class="col-sm-2"><!--width is set by this div -->
                         <select class="form-control" (change)="onChange($event)" [(ngModel)]="searchCriteria.searchCategory">
                             <option>nslookup</option>
+                            <option>ipconfig /all</option>
+                            <option>ipconfig /flushdns</option>
+                            <option>ipconfig /displaydns</option>
                             <option>ping</option>
                             <option>dig</option>
+                            <option>dig -x</option>
                             <option>tracert</option>
                             <option>measure</option>
                           </select>
                 </div>
-                <div class="col-sm-2" *ngIf="isMeasure" [(ngModel)]="searchCriteria.locationCategory">
-                        <select class="form-control">
+
+
+                <div class="col-sm-2" *ngIf="isMeasure ">
+
+                        <select class="form-control"  [(ngModel)]="searchCriteria.locationCategory">
                             <option>rural</option>
                             <option>urban</option>
                           </select>
@@ -36,7 +45,7 @@
                 </div>
 
                 <div class="col-sm-3">
-                    <button type="button" class="btn btn-info" (click)="onSubmit()">Search</button>
+                    <button type="button" class="btn btn-info"  (click)="onSubmit()">Search</button>
                   </div>
               </div>
 
@@ -44,15 +53,17 @@
         </div>
     </div>
   </div>
-  <div>
+</div>
+
       <div class="row">
           <div class="col-sm-6">
       <div class="form-group">
-          <textarea readonly class="form-control" rows="12" placeholder="Result will append here" edi>{{serachResult}}</textarea>
+          <textarea readonly class="form-control" rows="15" placeholder="Result will append here" edi>{{serachResult}}</textarea>
         </div>
       </div>
       <div class="col-sm-6">
-        <div style="padding:2px;height:300px;background-color:#59cc0d">
+          <div class="form-group" row ="15">
+        <div style="padding:2px;height:375px;background-color:#9191b6;font:bolder">
         <div *ngIf="searchCriteria.searchCategory === 'ping'">
           <p>The ping command works by sending Internet Control Message Protocol (ICMP) Echo Request messages and getting responses. After that it tells you how many packets have come through, how many packets have been lost, the time it took them to make the round trip,
              and if there were any errors related to the process or if there was no reply at all.</p>
@@ -63,14 +74,18 @@
           <div *ngIf="searchCriteria.searchCategory === 'dig'">
               <p>Dig stands for (Domain Information Groper) is a network administration command-line tool for querying Domain Name System (DNS) name servers. It is useful for verifying and troubleshooting DNS problems and also to perform DNS lookups and displays the answers that are returned from the name server that were queried</p>
             </div>
+            <div *ngIf="searchCriteria.searchCategory === 'dig -x'">
+              <p>Dig stands for (Domain Information Groper) is a network administration command-line tool for querying Domain Name System (DNS) name servers. It helps the user to explore the reverse DNS option available in network world</p>
+            </div>
           <div *ngIf="searchCriteria.searchCategory === 'tracert'">
               <p>Traceroute is a command which can show you the path a packet of information takes from your computer to one you specify. It will list all the routers it passes through until it reaches its destination, or fails to and is discarded. In addition to this, it will tell you how long each 'hop' from router to router takes.</p>
             </div>
             <div *ngIf="searchCriteria.searchCategory === 'measure'">
-                <p>hello there measure</p>
+                <p>Explore the lag introduced by selecting rural option and the measure the difference between rural and urban.</p>
               </div>
             </div>
           </div>
       </div>
-  </div>
-</div>
+
+
+
