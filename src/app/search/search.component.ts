@@ -10,7 +10,7 @@ import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
   styleUrls: ['./search.component.css']
 })
 export class SearchComponent implements OnInit {
-isMeasure = false;
+shouldDisplayLocation = true;
 isLoading = false;
 dataservice: any;
 serachResult: string;
@@ -23,10 +23,10 @@ searchCriteria: SearchCriteria;
   }
 
   onChange(event: any) {
-  if ( event.target.value === 'measure') {
-    this.isMeasure = true;
+  if ( event.target.value !== 'nslookup' && event.target.value !== 'flushdns' && event.target.value !== 'displaydns') {
+    this.shouldDisplayLocation = true;
   } else {
-    this.isMeasure = false;
+    this.shouldDisplayLocation = false;
   }
   }
 

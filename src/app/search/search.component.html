@@ -17,9 +17,8 @@
             <div class="col-sm-2"><!--width is set by this div -->
                         <select class="form-control" (change)="onChange($event)" [(ngModel)]="searchCriteria.searchCategory">
                             <option>nslookup</option>
-                            <option>ipconfig /all</option>
-                            <option>ipconfig /flushdns</option>
-                            <option>ipconfig /displaydns</option>
+                            <option>flushdns</option>
+                            <option>displaydns</option>
                             <option>ping</option>
                             <option>dig</option>
                             <option>dig -x</option>
@@ -29,7 +28,7 @@
                 </div>
 
 
-                <div class="col-sm-2" *ngIf="isMeasure ">
+                <div class="col-sm-2" *ngIf="shouldDisplayLocation">
 
                         <select class="form-control"  [(ngModel)]="searchCriteria.locationCategory">
                             <option>rural</option>
@@ -38,7 +37,7 @@
                     </div>
                 <div class="col-sm-4"><!--width is set by this div -->
                    <div class="row">
-                      <div class="col-sm-9">
+                      <div class="col-sm-9" *ngIf="shouldDisplayLocation">
                   <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="searchCriteria.url">
                   </div>
