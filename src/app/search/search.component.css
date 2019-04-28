@@ -1,4 +1,13 @@
 .fullscreen {
     background-image: url("/assets/search.jpg");
   }
+.textarea{
+  text-align: center;
+  
+  width:100%;
+  padding: 4px;
+  margin:5px;
+  border: 1px solid #f0f040; 
+  background-color: lightblue;
+}
 

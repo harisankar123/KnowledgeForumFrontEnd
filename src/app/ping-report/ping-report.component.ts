@@ -1,19 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchResult } from '../search/model/search-result-model';
 import { ActivatedRoute } from '@angular/router';
+import { SearchCriteria } from '../search/model/search-criteria-model';
 
 @Component({
-  selector: 'app-search-report',
-  templateUrl: './search-report.component.html',
-  styleUrls: ['./search-report.component.css']
+  selector: 'app-ping-report',
+  templateUrl: './ping-report.component.html',
+  styleUrls: ['./ping-report.component.css']
 })
-export class SearchReportComponent implements OnInit {
+export class PingReportComponent implements OnInit {
 searchReports: SearchResult[];
+searchCriteria: SearchCriteria;
 measureDuration: number;
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.searchReports = this.route.snapshot.data.searchReports;
+    this.searchCriteria = this.searchCriteria;
     console.log(this.searchReports);
   }
 
@@ -77,20 +80,16 @@ measureDuration: number;
     return 'NA';
   }
 
-  getCacheInfo(searchReport: SearchResult, index:number): string {
-    const oldSearchReport = this.searchReports[index-1];
-    const currentSearchReport = this.searchReports[index];
-    if(searchReport.searchCategory === 'dig') {
-      const oldQueryTemp = oldSearchReport.searchResult.split("Query time:")[1].trim();
-      const oldQueryTime = oldQueryTemp.split(" ")[1].trim();
-      const newQueryTemp = currentSearchReport.searchResult.split("Query time:")[1].trim();
-      const newQueryTime = newQueryTemp.split(" ")[1].trim();
-      if(oldQueryTime>newQueryTime) {
-        return 'Cache hit';
-      }
-      return 'Cache miss';
-    }
-    return 'NA';
-  }
+//   getCacheInfo(searchReport: SearchResult): string {
+//     if(searchReport.searchCategory === 'dig') {
+//       const queryTemp = searchReport.searchResult.split("Query time:")[1].trim();
+//       const queryTime = queryTemp.split(" ")[1].trim();
+//       if(queryTime === '0') {
+//         return 'Cache hit';
+//       }
+//       return 'Cache miss';
+//     }
+//     return 'NA';
+//   }
 
 }

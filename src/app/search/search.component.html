@@ -12,9 +12,9 @@
         </div>
 <div class="container">
   <div style="padding-top:4%">
-      <div style="padding-left:20px;padding-left:25%;padding-bottom:5px">
+      <div style="padding-left:30px;padding-left:35%;padding-bottom:5px">
       <div class="row">
-            <div class="col-sm-2"><!--width is set by this div -->
+            <div class="col-sm-3"><!--width is set by this div -->
                         <select class="form-control" (change)="onChange($event)" [(ngModel)]="searchCriteria.searchCategory">
                             <option>nslookup</option>
                             <option>flushdns</option>
@@ -22,8 +22,8 @@
                             <option>ping</option>
                             <option>dig</option>
                             <option>dig -x</option>
-                            <option>tracert</option>
-                            <option>measure</option>
+                            <!-- <option>tracert</option>
+                            <option>measure</option> -->
                           </select>
                 </div>
 
@@ -55,12 +55,12 @@
 </div>
 
       <div class="row">
-          <div class="col-sm-6">
-      <div class="form-group">
-          <textarea readonly class="form-control" rows="15" placeholder="Result will append here" edi>{{serachResult}}</textarea>
+          <div class="col-sm-12">
+      <div class="form-group" >
+          <textarea readonly class="textarea"  rows="20"  placeholder="Result will append here" edi>{{serachResult}}</textarea>
         </div>
       </div>
-      <div class="col-sm-6">
+      <!-- <div class="col-sm-6">
           <div class="form-group" row ="15">
         <div style="padding:2px;height:375px;background-color:#9191b6;font:bolder">
         <div *ngIf="searchCriteria.searchCategory === 'ping'">
@@ -83,7 +83,7 @@
                 <p>Explore the lag introduced by selecting rural option and the measure the difference between rural and urban.</p>
               </div>
             </div>
-          </div>
+          </div> -->
       </div>
 
 

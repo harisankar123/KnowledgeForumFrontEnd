@@ -15,6 +15,7 @@ import { SharedComponent } from './shared/shared.component';
 import { SearchReportComponent } from './search-report/search-report.component';
 import { SearchResultResolver } from './search-report/service/search-result-service';
 import { MaterialComponent } from './material/material.component';
+import{ PingReportComponent } from './ping-report/ping-report.component';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 
 import { LoginComponent } from './login/login.component';
@@ -30,7 +31,8 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
     SharedComponent,
     SearchReportComponent,
     MaterialComponent,
-    LoginComponent
+    LoginComponent,
+    PingReportComponent
 
   ],
   imports: [

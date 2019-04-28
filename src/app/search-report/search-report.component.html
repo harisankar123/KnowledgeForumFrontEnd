@@ -17,6 +17,11 @@
             <th>Category</th>
             <th>Location</th>
             <th>Result</th>
+            <th>Cache</th>
+            <th>Minimum Time</th>
+            <th>Average Time</th>
+            <th>Maximum Time</th>
+            
           </tr>
         </thead>
         <tbody *ngIf="searchReports && searchReports.length>0" >
@@ -33,6 +38,21 @@
                 <td>
                     <div [ngClass]="getClassName(searchReport.searchResult, i)" title="{{searchReport.searchResult}}">{{searchReport.searchResult}}</div>
                   </td>
+                  <td>
+                    {{getCacheInfo(searchReport)}}
+                    
+                  </td>
+                  <td>
+                   {{getTimeInfoMin(searchReport)}} 
+                    
+                  </td> 
+                  <td>
+                    {{getTimeInfo(searchReport)}} 
+                  
+                   </td> 
+                   <td>
+                      {{getTimeInfoMax(searchReport)}} 
+                  </td> 
           </tr>
         </tbody>
       </table>

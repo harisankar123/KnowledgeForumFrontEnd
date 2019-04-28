@@ -23,7 +23,7 @@ searchCriteria: SearchCriteria;
   }
 
   onChange(event: any) {
-  if ( event.target.value !== 'nslookup' && event.target.value !== 'flushdns' && event.target.value !== 'displaydns') {
+  if (  event.target.value !== 'flushdns' && event.target.value !== 'displaydns') {
     this.shouldDisplayLocation = true;
   } else {
     this.shouldDisplayLocation = false;

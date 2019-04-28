@@ -7,6 +7,7 @@ import { SearchReportComponent } from './search-report/search-report.component';
 import { SearchResultResolver } from './search-report/service/search-result-service';
 import {MaterialComponent} from './material/material.component';
 import { LoginComponent } from './login/login.component';
+import {PingReportComponent} from './ping-report/ping-report.component';
 
 
 const routes: Routes = [
@@ -24,6 +25,12 @@ const routes: Routes = [
    path: 'demo',
    component: SearchComponent
  },
+ {
+  path: 'pingreport',
+  component: PingReportComponent,
+  resolve: {searchReports: SearchResultResolver},
+},
+
  {
   path: 'report',
   component: SearchReportComponent,
