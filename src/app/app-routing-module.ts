@@ -7,7 +7,7 @@ import { SearchReportComponent } from './search-report/search-report.component';
 import { SearchResultResolver } from './search-report/service/search-result-service';
 import {MaterialComponent} from './material/material.component';
 import { LoginComponent } from './login/login.component';
-import {PingReportComponent} from './ping-report/ping-report.component';
+import { MultiBarChartComponent } from './multi-bar-chart/multi-bar-chart.component';
 
 
 const routes: Routes = [
@@ -27,19 +27,25 @@ const routes: Routes = [
  },
  {
   path: 'pingreport',
-  component: PingReportComponent,
+  component: SearchReportComponent,
+  data: {reportCategory:'ping'},
   resolve: {searchReports: SearchResultResolver},
 },
 
  {
-  path: 'report',
+  path: 'digreport',
   component: SearchReportComponent,
+  data: {reportCategory:'dig'},
   resolve: {searchReports: SearchResultResolver},
 },
 {
   path: 'login',
   component: LoginComponent,
   resolve: {searchReports: SearchResultResolver},
+},
+{
+  path: 'chart',
+  component: MultiBarChartComponent
 }
 ];
 

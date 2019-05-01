@@ -10,6 +10,11 @@
             </div>
       </div>
       <div style="padding-top:4%">
+          <div class="row">
+              <div class="col-sm-6" *ngIf="reportCategory =='ping'">
+                <div style="height:400px;overflow-x: auto;">
+                <div style = "text-anchor: middle;font-family: 'Source Sans Pro';font-size: 18px;
+                font-weight: bold;color: #5a5a5a; margin-left: 32%;margin-bottom: 2%"> Ping Search Report</div>
         <table class="customTable">
         <thead>
           <tr>
@@ -17,10 +22,7 @@
             <th>Category</th>
             <th>Location</th>
             <th>Result</th>
-            <th>Cache</th>
-            <th>Minimum Time</th>
             <th>Average Time</th>
-            <th>Maximum Time</th>
             
           </tr>
         </thead>
@@ -36,24 +38,58 @@
                   <div>{{searchReport.locationCategory}}</div>
                 </td>
                 <td>
-                    <div [ngClass]="getClassName(searchReport.searchResult, i)" title="{{searchReport.searchResult}}">{{searchReport.searchResult}}</div>
+                    <div title="{{searchReport.searchResult}}">{{searchReport.searchResult}}</div>
                   </td>
-                  <td>
-                    {{getCacheInfo(searchReport)}}
-                    
-                  </td>
-                  <td>
-                   {{getTimeInfoMin(searchReport)}} 
-                    
-                  </td> 
                   <td>
                     {{getTimeInfo(searchReport)}} 
-                  
                    </td> 
-                   <td>
-                      {{getTimeInfoMax(searchReport)}} 
-                  </td> 
           </tr>
         </tbody>
       </table>
+      </div>
+    </div>
+    <div class="col-sm-6" *ngIf="reportCategory =='dig'">
+        <div style="height:400px;overflow-x: auto;">
+        <div style = "text-anchor: middle;font-family: 'Source Sans Pro';font-size: 18px;
+        font-weight: bold;color: #5a5a5a; margin-left: 32%;margin-bottom: 2%"> Dig Search Report</div>
+<table class="customTable">
+<thead>
+  <tr>
+    <th>URL</th>
+    <th>Category</th>
+    <th>Location</th>
+    <th>Result</th>
+    <th>Average Time</th>
+    <th>Cache</th>
+  </tr>
+</thead>
+<tbody *ngIf="searchReports && searchReports.length>0" >
+  <tr *ngFor="let searchReport of searchReports; let i = index">
+  <td>
+      <div>{{searchReport.url}}</div>
+    </td>
+    <td>
+        <div>{{searchReport.searchCategory}}</div>
+      </td>
+      <td>
+          <div>{{searchReport.locationCategory}}</div>
+        </td>
+        <td>
+            <div [ngClass]="getClassName(searchReport.searchResult, i)" title="{{searchReport.searchResult}}">{{searchReport.searchResult}}</div>
+          </td>
+          <td>
+            {{getTimeInfo(searchReport)}} 
+           </td> 
+           <td>
+            {{getCacheInfo(searchReport,i)}} 
+           </td>
+  </tr>
+</tbody>
+</table>
+</div>
+</div>
+      <div class="col-sm-6">
+        <app-multi-bar-chart [xaxisdata]= "x" [yaxisdata]= "y"></app-multi-bar-chart>
+      </div>
+      </div>
       </div>

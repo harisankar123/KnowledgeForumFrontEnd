@@ -15,13 +15,24 @@ import { SharedComponent } from './shared/shared.component';
 import { SearchReportComponent } from './search-report/search-report.component';
 import { SearchResultResolver } from './search-report/service/search-result-service';
 import { MaterialComponent } from './material/material.component';
-import{ PingReportComponent } from './ping-report/ping-report.component';
 import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 
 import { LoginComponent } from './login/login.component';
 import { UserService } from './login/Services/User.Services';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { MultiBarChartComponent } from './multi-bar-chart/multi-bar-chart.component';
+// Import angular-fusioncharts
+import { FusionChartsModule } from 'angular-fusioncharts';
 
+// Import FusionCharts library and chart modules
+import * as FusionCharts from 'fusioncharts';
+
+import * as Charts from 'fusioncharts/fusioncharts.charts';
+
+import * as FusionTheme from 'fusioncharts/themes/fusioncharts.theme.fusion';
+import { NgApexchartsModule } from 'ng-apexcharts';
+// Pass the fusioncharts library and chart modules
+FusionChartsModule.fcRoot(FusionCharts, Charts, FusionTheme);
 
 @NgModule({
   declarations: [
@@ -32,7 +43,7 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
     SearchReportComponent,
     MaterialComponent,
     LoginComponent,
-    PingReportComponent
+    MultiBarChartComponent
 
   ],
   imports: [
@@ -41,13 +52,15 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
     HttpClientModule,
     HttpModule,
     FormsModule,
+    FusionChartsModule,
+    NgApexchartsModule,
     Ng4LoadingSpinnerModule.forRoot(),
     CarouselModule.forRoot()
 
   ],
 
 
-  providers: [TilesService, TilesResolver, SerachService, SearchResultResolver,UserService ],
+  providers: [TilesService, TilesResolver, SerachService, SearchResultResolver, UserService, MultiBarChartComponent ],
   bootstrap: [AppComponent]
 
 })

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SearchResult } from '../search/model/search-result-model';
 import { ActivatedRoute } from '@angular/router';
+import { MultiBarChartComponent } from '../multi-bar-chart/multi-bar-chart.component';
 
 @Component({
   selector: 'app-search-report',
@@ -10,11 +11,63 @@ import { ActivatedRoute } from '@angular/router';
 export class SearchReportComponent implements OnInit {
 searchReports: SearchResult[];
 measureDuration: number;
-  constructor(private route: ActivatedRoute) { }
+x: {}[];
+y: {}[];
+reportCategory: string;
+  constructor(private route: ActivatedRoute, private bar: MultiBarChartComponent) { }
 
   ngOnInit() {
-    this.searchReports = this.route.snapshot.data.searchReports;
-    console.log(this.searchReports);
+    this.reportCategory = this.route.snapshot.data.reportCategory;
+    this.searchReports = this.reportCategory === 'ping' ? 
+    this.route.snapshot.data.searchReports.filter(report => report.searchCategory === 'ping')
+    : this.route.snapshot.data.searchReports.filter(report => report.searchCategory === 'dig');
+    this.x = [];
+    let ruralTime: {}[] = [];
+    let urbanTime: {}[] = [];
+    let nonCacheTime: {}[] = [];
+    let cacheTime: {}[] = [];
+    this.searchReports.forEach(report => {
+      if(report.searchCategory =='ping') {
+      this.setPingReportInfo(report, ruralTime, urbanTime);
+    }
+    else if(report.searchCategory =='dig') {
+      this.setDigReportInfo(report, nonCacheTime, cacheTime);
+    }
+    });
+    this.y = this.reportCategory === 'ping' ? [{ 'seriesname' : 'rural', data : ruralTime}, { 'seriesname' : 'urban', data : urbanTime}]
+    : [{ 'seriesname' : 'cache miss', data : nonCacheTime}, { 'seriesname' : 'cache hit', data : cacheTime}];
+  }
+
+  private setPingReportInfo(report: SearchResult, ruralTime: {}[], urbanTime: {}[]) {
+    if (this.x.map(function (e) { return e['label']; }).indexOf(report.url) == -1) {
+      this.x.push({ 'label': report.url });
+    }
+    if (report.locationCategory == 'rural') {
+      const temp: string = report.searchResult.split("Average")[1].trim();
+      if (temp.endsWith('\n')) {
+        ruralTime.push({ 'value': parseInt(temp.substring(0, temp.length - 3).split("=")[1].trim()) });
+      }
+      ruralTime.push({ 'value': parseInt(temp.substring(0, temp.length - 2).split("=")[1].trim()) });
+    }
+    if (report.locationCategory == 'urban') {
+      const temp: string = report.searchResult.split("Average")[1].trim();
+      urbanTime.push({ 'value': parseInt(temp.substring(0, temp.length - 2).split("=")[1].trim()) });
+    }
+  }
+
+  private setDigReportInfo(report: SearchResult, nonCacheTime: {}[], cacheTime: {}[]) {
+    if (this.x.map(function (e) { return e['label']; }).indexOf(report.url) == -1) {
+      this.x.push({ 'label': report.url });
+    }
+    const temp: string = report.searchResult.split("Query time:")[1].trim();
+    const timeTakenTemp = temp.split(" ")[1].trim();
+    const timeTaken = parseInt(timeTakenTemp.substring(0, timeTakenTemp.length - 2).split("=")[1].trim())
+    if (timeTaken != 0) {
+      nonCacheTime.push({ 'value': timeTaken });
+    }
+    if (timeTaken == 0) {
+      cacheTime.push({ 'value': timeTaken });
+    }
   }
 
   getClassName(searchResult: string, index: number): string {
