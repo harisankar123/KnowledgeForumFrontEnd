@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SearchResult } from '../search/model/search-result-model';
 import { ActivatedRoute } from '@angular/router';
 import { MultiBarChartComponent } from '../multi-bar-chart/multi-bar-chart.component';
+import { Url } from 'url';
 
 @Component({
   selector: 'app-search-report',
@@ -10,6 +11,7 @@ import { MultiBarChartComponent } from '../multi-bar-chart/multi-bar-chart.compo
 })
 export class SearchReportComponent implements OnInit {
 searchReports: SearchResult[];
+url: Url;
 measureDuration: number;
 x: {}[];
 y: {}[];
@@ -18,7 +20,7 @@ reportCategory: string;
 
   ngOnInit() {
     this.reportCategory = this.route.snapshot.data.reportCategory;
-    this.searchReports = this.reportCategory === 'ping' ? 
+    this.searchReports = this.reportCategory === 'ping' ?
     this.route.snapshot.data.searchReports.filter(report => report.searchCategory === 'ping')
     : this.route.snapshot.data.searchReports.filter(report => report.searchCategory === 'dig');
     this.x = [];
@@ -60,12 +62,11 @@ reportCategory: string;
       this.x.push({ 'label': report.url });
     }
     const temp: string = report.searchResult.split("Query time:")[1].trim();
-    const timeTakenTemp = temp.split(" ")[1].trim();
-    const timeTaken = parseInt(timeTakenTemp.substring(0, timeTakenTemp.length - 2).split("=")[1].trim())
-    if (timeTaken != 0) {
+    const timeTaken = parseInt(temp.split(" ")[0].trim());
+    if (timeTaken > 10) {
       nonCacheTime.push({ 'value': timeTaken });
     }
-    if (timeTaken == 0) {
+    if (timeTaken <= 10) {
       cacheTime.push({ 'value': timeTaken });
     }
   }
@@ -100,30 +101,30 @@ reportCategory: string;
   getTimeInfo(searchReport:SearchResult): string {
     if(searchReport.searchCategory=='ping'){
       const avgTemp =searchReport.searchResult.split("Average")[1].trim();
-      
+
       const avgTime = avgTemp.split("=")[1].trim();
-     
-      return avgTime;
+
+      return " " +avgTime ;
     }
     return 'NA';
   }
   getTimeInfoMin(searchReport:SearchResult): string {
     if(searchReport.searchCategory=='ping'){
-      
+
       const minTemp =searchReport.searchResult.split("Minimum")[1].trim();
-      
- 
+
+
       const minTime = minTemp.split("=")[1].trim().substring(0,3);
-      
+
       return minTime;
     }
     return 'NA';
   }
   getTimeInfoMax(searchReport:SearchResult): string {
     if(searchReport.searchCategory=='ping'){
-     
+
       const maxTemp =searchReport.searchResult.split("Maximum")[1].trim();
-     
+
       const maxTime = maxTemp.split("=")[1].trim().substring(0,5);
       return maxTime;
     }
@@ -134,16 +135,59 @@ reportCategory: string;
     const oldSearchReport = this.searchReports[index-1];
     const currentSearchReport = this.searchReports[index];
     if(searchReport.searchCategory === 'dig') {
-      const oldQueryTemp = oldSearchReport.searchResult.split("Query time:")[1].trim();
-      const oldQueryTime = oldQueryTemp.split(" ")[1].trim();
-      const newQueryTemp = currentSearchReport.searchResult.split("Query time:")[1].trim();
-      const newQueryTime = newQueryTemp.split(" ")[1].trim();
-      if(oldQueryTime>newQueryTime) {
-        return 'Cache hit';
+      if(oldSearchReport) {
+        const oldQueryTemp = oldSearchReport.searchResult.split("Query time:")[1].trim();
+        const oldQueryTime = parseInt(oldQueryTemp.split(" ")[0].trim());
+        const newQueryTemp = currentSearchReport.searchResult.split("Query time:")[1].trim();
+        const newQueryTime = parseInt(newQueryTemp.split(" ")[0].trim());
+        if(oldQueryTime>newQueryTime) {
+          return 'Cache hit';
+        }
       }
       return 'Cache miss';
     }
     return 'NA';
   }
+  getCacheInfoPercentage(searchReport: SearchResult, index:number): string {
+    const oldSearchReport = this.searchReports[index-1];
+    const currentSearchReport = this.searchReports[index];
+    if(searchReport.searchCategory === 'dig') {
+      if(oldSearchReport) {
+        if(oldSearchReport.url===currentSearchReport.url){
+        const oldQueryTemp = oldSearchReport.searchResult.split("Query time:")[1].trim();
+        const oldQueryTime = parseInt(oldQueryTemp.split(" ")[0].trim());
+        const newQueryTemp = currentSearchReport.searchResult.split("Query time:")[1].trim();
+        const newQueryTime = parseInt(newQueryTemp.split(" ")[0].trim());
+        const percentage = Math.round(((oldQueryTime-newQueryTime)/oldQueryTime)*100);
+        return percentage+'%';
+        }
+  }
+}
+  }
+  getPingInfoPercentage(searchReport: SearchResult, index:number): string {
+    const oldSearchReport = this.searchReports[index-1];
+    const currentSearchReport = this.searchReports[index];
+    if(searchReport.searchCategory === 'ping') {
+      if(oldSearchReport) {
+        if(oldSearchReport.locationCategory==='urban'){
+        const oldQueryTemp = oldSearchReport.searchResult.split("Average")[1].trim();
+        const oldQueryTime = parseInt(oldQueryTemp.split("=")[1].trim());
+        const newQueryTemp = currentSearchReport.searchResult.split("Average")[1].trim();
+        const newQueryTime = parseInt(newQueryTemp.split("=")[1].trim());
+        const percentage = Math.round(((newQueryTime-oldQueryTime)/oldQueryTime)*100);
+        return   percentage + '%';
+        }
+  }
+}
+  }
+  getCacheTimeInfo(searchReport:SearchResult): string  {
+    if(searchReport.searchCategory ==='dig'){
+      const avgTemp =searchReport.searchResult.split("Query time:")[1].trim();
 
+      const avgTime = avgTemp.split(" ")[0].trim();
+
+      return avgTime + "ms";
+    }
+    return 'NA';
+  }
 }
