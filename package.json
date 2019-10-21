@@ -29,7 +29,7 @@
     "d3": "^5.9.2",
     "fusioncharts": "^3.13.4",
     "jquery": "^3.3.1",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.13",
     "ng-apexcharts": "^1.0.2",
     "ng2-carouselamos": "^3.2.0",
     "ng4-loading-spinner": "^1.2.3",
