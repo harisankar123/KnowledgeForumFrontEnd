@@ -28,7 +28,7 @@
     "core-js": "^2.5.4",
     "d3": "^5.9.2",
     "fusioncharts": "^3.13.4",
-    "jquery": "^3.3.1",
+    "jquery": "^3.5.0",
     "lodash": "^4.17.11",
     "ng-apexcharts": "^1.0.2",
     "ng2-carouselamos": "^3.2.0",
